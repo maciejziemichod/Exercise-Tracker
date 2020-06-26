@@ -1,0 +1,32 @@
+{
+  "name": "exercise-tracker",
+  "version": "1.0.0",
+  "description": "Project for freeCodeCamp",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maciejziemichod/Exercise-Tracker.git"
+  },
+  "keywords": [
+    "freeCodeCamp"
+  ],
+  "author": "Maciej Ziemichód",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maciejziemichod/Exercise-Tracker/issues"
+  },
+  "homepage": "https://github.com/maciejziemichod/Exercise-Tracker#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.20"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
