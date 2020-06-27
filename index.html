@@ -22,9 +22,10 @@
               <form class="col s12" action="api/exercise/new-user" method="POST">
                 <div class="row">
                   <div class="input-field col s12 l10 push-l1">
-                    <input placeholder="username" type="text" class="validate" name="name">
+                    <input placeholder="Username" type="text" class="validate" name="_id" required>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col s12 l10 push-l1">
                     <button class="btn btn-block indigo" type="submit">Submit</button>
@@ -39,15 +40,36 @@
         <div class="card white hoverable">
           <div class="card-content black-text">
             <span class="card-title center">Add exercise</span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Dignissimos veritatis vitae minus? Iusto ea fugiat porro
-              consectetur hic recusandae, optio perferendis reprehenderit
-              excepturi illo, cupiditate, consequuntur repellat modi sint cum?
-              Neque corrupti enim et aliquid. Deserunt facilis ea excepturi
-              perspiciatis recusandae voluptas, porro cupiditate? Reiciendis
-              magni consequuntur quae suscipit beatae?
-            </p>
+            <div class="row">
+              <form class="col s12" action="api/exercise/add" method="POST">
+                <div class="row">
+                  <div class="input-field col s12 l10 push-l1">
+                    <input placeholder="User ID" type="text" class="validate" name="name" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 l10 push-l1">
+                    <input placeholder="Description" type="text" class="validate" name="description" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 l10 push-l1">
+                    <input placeholder="Duration (minutes)" type="number" class="validate" name="duration" required
+                      min="1">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 l10 push-l1">
+                    <input type="date" class="validate" name="date">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 l10 push-l1">
+                    <button class="btn btn-block indigo" type="submit">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

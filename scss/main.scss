@@ -10,7 +10,7 @@ input {
   width: 100%;
 }
 
-input[type="text"]:focus {
+input:focus {
   border-bottom-color: #3f51b5 !important;
 }
 

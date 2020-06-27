@@ -65,6 +65,9 @@ app.get("/api/exercise/users", (req, res) => {
 });
 
 // API add exercise
+app.post("/api/exercise/add", (req, res) => {
+  res.json(req.body);
+});
 
 // API retrieve exercise log
 
