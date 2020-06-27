@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 
 // API new user
 app.post("/api/exercise/new-user", (req, res) => {
-  res.json({});
+  res.json(req.body);
 });
 
 // API array of users

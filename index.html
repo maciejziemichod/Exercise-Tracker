@@ -1,51 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exercise Tracker</title>
-    <link rel="stylesheet" href="./dist/css/main.min.css" />
-  </head>
 
-  <body class="grey lighten-3">
-    <header>
-      <h1 class="center grey-text text-darken-3">Exercise Tracker</h1>
-    </header>
-    <div class="container valign-wrapper">
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card white">
-            <div class="card-content black-text">
-              <span class="card-title center">Create new user</span>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Aperiam, facilis nisi repellat ducimus aliquam magni pariatur
-                placeat incidunt perspiciatis quis voluptate expedita
-                voluptates! Explicabo aspernatur, odio placeat tenetur laborum
-                soluta, nesciunt ex molestiae voluptatem non quas nihil eligendi
-                optio, nulla necessitatibus repellat nisi corrupti et ratione
-                commodi? Corporis, earum nisi!
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col s12 m6">
-          <div class="card white">
-            <div class="card-content black-text">
-              <span class="card-title center">Add exercise</span>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dignissimos veritatis vitae minus? Iusto ea fugiat porro
-                consectetur hic recusandae, optio perferendis reprehenderit
-                excepturi illo, cupiditate, consequuntur repellat modi sint cum?
-                Neque corrupti enim et aliquid. Deserunt facilis ea excepturi
-                perspiciatis recusandae voluptas, porro cupiditate? Reiciendis
-                magni consequuntur quae suscipit beatae?
-              </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Tracker</title>
+  <link rel="stylesheet" href="./dist/css/main.min.css" />
+</head>
+
+<body class="grey lighten-3">
+  <header>
+    <h1 class="center grey-text text-darken-3">Exercise Tracker</h1>
+  </header>
+  <div class="container valign-wrapper">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card white hoverable">
+          <div class="card-content black-text">
+            <span class="card-title center">Create new user</span>
+            <div class="row">
+              <form class="col s12" action="api/exercise/new-user" method="POST">
+                <div class="row">
+                  <div class="input-field col s12 l10 push-l1">
+                    <input placeholder="username" type="text" class="validate" name="name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 l10 push-l1">
+                    <button class="btn btn-block indigo" type="submit">Submit</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+      <div class="col s12 m6">
+        <div class="card white hoverable">
+          <div class="card-content black-text">
+            <span class="card-title center">Add exercise</span>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Dignissimos veritatis vitae minus? Iusto ea fugiat porro
+              consectetur hic recusandae, optio perferendis reprehenderit
+              excepturi illo, cupiditate, consequuntur repellat modi sint cum?
+              Neque corrupti enim et aliquid. Deserunt facilis ea excepturi
+              perspiciatis recusandae voluptas, porro cupiditate? Reiciendis
+              magni consequuntur quae suscipit beatae?
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
