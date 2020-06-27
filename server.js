@@ -44,6 +44,20 @@ app.get("/", (req, res) => {
   res.sendFile(process.cwd() + "/index.html");
 });
 
+// API new user
+app.post("/api/exercise/new-user", (req, res) => {
+  res.json({});
+});
+
+// API array of users
+app.get("/api/exercise/users", (req, res) => {
+  res.json({});
+});
+
+// API add exercise
+
+// API retrieve exercise log
+
 // Listening
 const listener = app.listen(PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
