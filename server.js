@@ -29,7 +29,15 @@ mongoose.connection.on(
   console.error.bind(console, "connection error")
 );
 
-// Enabling remote freeCodeCamp testing
+// Schema
+const userSchema = new mongoose.Schema({
+  username: String,
+});
+
+// Model
+const User = mongoose.model("User", userSchema);
+
+// CORS
 app.use(cors());
 
 // Body-parser
@@ -51,7 +59,9 @@ app.post("/api/exercise/new-user", (req, res) => {
 
 // API array of users
 app.get("/api/exercise/users", (req, res) => {
-  res.json({});
+  User.find({}, "username _id").then((response) => {
+    res.json(response);
+  });
 });
 
 // API add exercise
