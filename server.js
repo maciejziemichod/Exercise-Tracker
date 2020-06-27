@@ -54,7 +54,25 @@ app.get("/", (req, res) => {
 
 // API new user
 app.post("/api/exercise/new-user", (req, res) => {
-  res.json(req.body);
+  const { username } = req.body;
+  const newUser = new User({ username });
+
+  // Checking if that user already exists
+  User.findOne({ username })
+    .then((response) => {
+      if (response) {
+        // username already taken
+        res.json({ error: `Username "${username}" is already taken` });
+      } else {
+        newUser
+          .save()
+          .then((response) => {
+            res.json({ _id: response._id, username });
+          })
+          .catch((err) => console.error(err));
+      }
+    })
+    .catch((err) => console.error(err));
 });
 
 // API array of users
