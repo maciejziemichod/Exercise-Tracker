@@ -31,7 +31,10 @@ mongoose.connection.on(
 
 // Schema
 const userSchema = new mongoose.Schema({
-  username: String,
+  username: {
+    type: String,
+    required: true,
+  },
 });
 
 // Model
