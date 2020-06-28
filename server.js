@@ -62,7 +62,7 @@ app.post("/api/exercise/new-user", (req, res) => {
     .then((response) => {
       if (response) {
         // username already taken
-        res.json({ error: `Username "${username}" is already taken` });
+        res.json({ error: `Username '${username}' is already taken` });
       } else {
         newUser
           .save()

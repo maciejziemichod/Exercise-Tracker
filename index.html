@@ -1,82 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Tracker</title>
+    <link rel="stylesheet" href="./dist/css/main.min.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exercise Tracker</title>
-  <link rel="stylesheet" href="./dist/css/main.min.css" />
-</head>
+  <body class="grey lighten-3">
+    <header>
+      <h1 class="center grey-text text-darken-3">Exercise Tracker</h1>
+    </header>
 
-<body class="grey lighten-3">
-  <header>
-    <h1 class="center grey-text text-darken-3">Exercise Tracker</h1>
-  </header>
-
-  <div class="container valign-wrapper ">
-    <div class="row">
-      <!-- create new user -->
-      <div class="col s12 l6">
-        <div class="card white hoverable">
-          <div class="card-content black-text">
-            <span class="card-title center">Create new user</span>
-            <div class="row">
-              <form class="col s12" action="api/exercise/new-user" method="POST">
-                <div class="row">
-                  <div class="input-field col s11 push-s1">
-                    <input placeholder="Username" type="text" class="validate" name="username" required>
+    <div class="container valign-wrapper">
+      <div class="row">
+        <!-- create new user -->
+        <div class="col s12 l6">
+          <div class="card white hoverable">
+            <div class="card-content black-text">
+              <span class="card-title center">Create new user</span>
+              <div class="row">
+                <form
+                  class="col s12"
+                  action="api/exercise/new-user"
+                  method="POST"
+                >
+                  <div class="row">
+                    <div class="input-field col s11 push-s1">
+                      <input
+                        placeholder="Username"
+                        type="text"
+                        class="validate"
+                        name="username"
+                        required
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col s11 push-s1 ">
-                    <button class="btn btn-block indigo" type="submit">Submit</button>
+                  <div class="row">
+                    <div class="col s11 push-s1">
+                      <button class="btn btn-block indigo" type="submit">
+                        Submit
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- array of users -->
+          <div class="card white hoverable">
+            <div class="card-content black-text">
+              <span class="card-title center array">Get an array of users</span>
+              <div class="row">
+                <form class="col s12" action="api/exercise/users" method="GET">
+                  <div class="row">
+                    <div class="col s11 push-s1">
+                      <button class="btn btn-block indigo" type="submit">
+                        GET USERS
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- add exercise -->
-      <div class="col s12 l6 ">
-        <div class="card white hoverable">
-          <div class="card-content black-text">
-            <span class="card-title center">Add exercise</span>
-            <div class="row">
-              <form class="col s12" action="api/exercise/add" method="POST">
-                <div class="row">
-                  <div class="input-field col s11 push-s1">
-                    <input placeholder="User ID" type="text" class="validate" name="_id" required>
+        <!-- add exercise -->
+        <div class="col s12 l6">
+          <div class="card white hoverable add-exercise">
+            <div class="card-content black-text">
+              <span class="card-title center">Add exercise</span>
+              <div class="row">
+                <form class="col s12" action="api/exercise/add" method="POST">
+                  <div class="row">
+                    <div class="input-field col s11 push-s1">
+                      <input
+                        placeholder="User ID"
+                        type="text"
+                        class="validate"
+                        name="_id"
+                        required
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s11 push-s1">
-                    <input placeholder="Description" type="text" class="validate" name="description" required>
+                  <div class="row">
+                    <div class="input-field col s11 push-s1">
+                      <input
+                        placeholder="Description"
+                        type="text"
+                        class="validate"
+                        name="description"
+                        required
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s11 push-s1">
-                    <input placeholder="Duration (minutes)" type="number" class="validate" name="duration" required
-                      min="1">
+                  <div class="row">
+                    <div class="input-field col s11 push-s1">
+                      <input
+                        placeholder="Duration (minutes)"
+                        type="number"
+                        class="validate"
+                        name="duration"
+                        required
+                        min="1"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s11 push-s1">
-                    <input type="date" class="validate" name="date">
+                  <div class="row">
+                    <div class="input-field col s11 push-s1">
+                      <input type="date" class="validate" name="date" />
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col s11 push-s1">
-                    <button class="btn btn-block indigo" type="submit">Submit</button>
+                  <div class="row">
+                    <div class="col s11 push-s1">
+                      <button class="btn btn-block indigo" type="submit">
+                        Submit
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

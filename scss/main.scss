@@ -18,4 +18,24 @@ input:focus {
   width: 100% !important;
 }
 
+.btn:hover,
+.btn:focus {
+  background-color: #5c6bc0 !important;
+}
+
+.array {
+  margin-bottom: 2rem !important;
+}
+
+.card .card-content {
+  padding-bottom: 6px !important;
+}
+
+.add-exercise {
+  margin-bottom: 0 !important;
+}
+
+h1 {
+  margin-top: 2rem !important;
+}
 @import "../node_modules/materialize-css/sass/materialize.scss";
