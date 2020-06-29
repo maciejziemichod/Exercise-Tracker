@@ -17,6 +17,7 @@ mongoose
   .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   // Handle initial error
   .catch((err) => console.error(err))
@@ -35,6 +36,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  log: Array,
 });
 
 // Model
@@ -87,11 +89,38 @@ app.get("/api/exercise/users", (req, res) => {
 
 // API add exercise
 app.post("/api/exercise/add", (req, res) => {
-  res.json(req.body);
+  const { _id, description, duration, date } = req.body;
+
+  // Given ID validation
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    res.json({ error: "Invalid user ID" });
+    return;
+  }
+
+  // Changing format of new Date if no provided
+  const newDate = date
+    ? date
+    : (() => {
+        const d = new Date();
+        let month = d.getMonth();
+        month++;
+        if (month < 10) {
+          month = "0" + month;
+        }
+        return `${d.getFullYear()}-${month}-${d.getDate()}`;
+      })();
+
+  const options = { new: true };
+  const update = { $push: { log: [{ description, duration, newDate }] } };
+
+  User.findByIdAndUpdate(_id, update, options)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => console.error(err));
 });
 
 // API retrieve exercise log
-
 // Listening
 const listener = app.listen(PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
