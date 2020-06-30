@@ -36,7 +36,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  log: Array,
+  log: [
+    {
+      description: String,
+      duration: String,
+      date: String,
+    },
+  ],
 });
 
 // Model
@@ -111,7 +117,7 @@ app.post("/api/exercise/add", (req, res) => {
       })();
 
   const options = { new: true };
-  const update = { $push: { log: [{ description, duration, newDate }] } };
+  const update = { $push: { log: [{ description, duration, date: newDate }] } };
 
   User.findByIdAndUpdate(_id, update, options)
     .then((response) => {
@@ -121,6 +127,7 @@ app.post("/api/exercise/add", (req, res) => {
 });
 
 // API retrieve exercise log
+
 // Listening
 const listener = app.listen(PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
