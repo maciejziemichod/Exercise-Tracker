@@ -65,7 +65,7 @@
               <form class="col s12" action="api/exercise/add" method="POST">
                 <div class="row">
                   <div class="input-field col s11 push-s1">
-                    <input placeholder="User ID" type="text" class="validate" name="_id" required />
+                    <input placeholder="User ID" type="text" class="validate" name="userId" required />
                   </div>
                 </div>
                 <div class="row">
@@ -113,7 +113,8 @@
                   <span class="grey lighten-3">/api/exercise/users</span>
                 </li>
                 <li class="collection-item">
-                  <strong>Adding exercises:</strong> POST JSON { _id, description: String, duration: stringified Number,
+                  <strong>Adding exercises:</strong> POST JSON { userId: _id, description: String, duration: stringified
+                  Number,
                   date (optional): String in a format YYYY-MM-DD } to <span
                     class="grey lighten-3">/api/exercise/add</span>
                 </li>

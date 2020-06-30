@@ -95,10 +95,10 @@ app.get("/api/exercise/users", (req, res) => {
 
 // API add exercise
 app.post("/api/exercise/add", (req, res) => {
-  const { _id, description, duration, date } = req.body;
+  const { userId, description, duration, date } = req.body;
 
   // Given ID validation
-  if (!mongoose.Types.ObjectId.isValid(_id)) {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
     res.json({ error: "Invalid user ID" });
     return;
   }
@@ -119,7 +119,7 @@ app.post("/api/exercise/add", (req, res) => {
   const options = { new: true };
   const update = { $push: { log: [{ description, duration, date: newDate }] } };
 
-  User.findByIdAndUpdate(_id, update, options)
+  User.findByIdAndUpdate(userId, update, options)
     .then((response) => {
       res.json(response);
     })
