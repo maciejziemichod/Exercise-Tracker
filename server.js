@@ -1,5 +1,8 @@
 "use strict";
 
+// TODO: i think i need to enable passing date object to adding exercise api to fulfill fcc requirements
+// use toDateString()
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -39,7 +42,7 @@ const userSchema = new mongoose.Schema({
   log: [
     {
       description: String,
-      duration: String,
+      duration: Number,
       date: String,
     },
   ],
@@ -97,31 +100,32 @@ app.get("/api/exercise/users", (req, res) => {
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
 
-  // Given ID validation
+  // ID validation
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     res.json({ error: "Invalid user ID" });
     return;
   }
 
-  // Changing format of new Date if no provided
-  const newDate = date
-    ? date
-    : (() => {
-        const d = new Date();
-        let month = d.getMonth();
-        month++;
-        if (month < 10) {
-          month = "0" + month;
-        }
-        return `${d.getFullYear()}-${month}-${d.getDate()}`;
-      })();
+  // Date validation
+  const givenDate = date ? date : Date.now();
+  const newDate = new Date(givenDate).toDateString();
+  if (newDate === "Invalid Date") {
+    res.json({ error: "Invalid date provided" });
+    return;
+  }
 
   const options = { new: true };
   const update = { $push: { log: [{ description, duration, date: newDate }] } };
 
   User.findByIdAndUpdate(userId, update, options)
     .then((response) => {
-      res.json(response);
+      res.json({
+        _id: userId,
+        username: response.username,
+        date: newDate,
+        duration: parseFloat(duration),
+        description,
+      });
     })
     .catch((err) => console.error(err));
 });

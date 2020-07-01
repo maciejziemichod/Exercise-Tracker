@@ -105,7 +105,7 @@
               <ul class="collection">
                 <li class="collection-item">
                   <strong>Creating new user:</strong> POST JSON { username :
-                  [your username] } to
+                  [your username: String] } to
                   <span class="grey lighten-3">/api/exercise/new-user</span>
                 </li>
                 <li class="collection-item">
@@ -113,10 +113,8 @@
                   <span class="grey lighten-3">/api/exercise/users</span>
                 </li>
                 <li class="collection-item">
-                  <strong>Adding exercises:</strong> POST JSON { userId: _id, description: String, duration: stringified
-                  Number,
-                  date (optional): String in a format YYYY-MM-DD } to <span
-                    class="grey lighten-3">/api/exercise/add</span>
+                  <strong>Adding exercises:</strong> POST JSON { userId: _id, description: String, duration: Number,
+                  date (optional): Date} to <span class="grey lighten-3">/api/exercise/add</span>
                 </li>
                 <li class="collection-item">
                   <strong>Retrieving exercise log:</strong>
