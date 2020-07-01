@@ -9,6 +9,9 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+// Functions
+const validateId = (id) => mongoose.Types.ObjectId.isValid(id);
+
 // Init
 const app = express();
 
@@ -101,7 +104,7 @@ app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
 
   // ID validation
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
+  if (!validateId(userId)) {
     res.json({ error: "Invalid user ID" });
     return;
   }
@@ -131,6 +134,30 @@ app.post("/api/exercise/add", (req, res) => {
 });
 
 // API retrieve exercise log
+app.get("/api/exercise/log", (req, res) => {
+  const { userId } = req.query;
+
+  // No query provided
+  if (!userId) {
+    res.json({ error: "Use /api/exercise/log?userId=_id" });
+    return;
+  }
+
+  // Invalid ID
+  if (!validateId(userId)) {
+    res.json({ error: "Invalid ID" });
+    return;
+  }
+
+  User.findById(userId, "_id username log")
+    .then((response) => {
+      res.json({
+        ...response.toObject(),
+        count: response.toObject().log.length,
+      });
+    })
+    .catch((err) => console.error(err));
+});
 
 // Listening
 const listener = app.listen(PORT, () => {
