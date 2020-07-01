@@ -153,11 +153,10 @@ app.get("/api/exercise/log", (req, res) => {
     .then((response) => {
       const exerciseLog = { ...response.toObject() };
       exerciseLog.count = exerciseLog.log.length;
-      exerciseLog.log = exerciseLog.log.map((elem) => ({
-        description: elem.description,
-        duration: elem.duration,
-        date: elem.date,
-      }));
+      exerciseLog.log = exerciseLog.log.map((elem) => {
+        const { _id, ...exercise } = elem;
+        return exercise;
+      });
 
       res.json(exerciseLog);
     })
