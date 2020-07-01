@@ -1,7 +1,7 @@
 "use strict";
 
-// TODO: i think i need to enable passing date object to adding exercise api to fulfill fcc requirements
-// use toDateString()
+// TODO: finish API instructions
+// TODO: retrieving part of exercise log
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -151,10 +151,15 @@ app.get("/api/exercise/log", (req, res) => {
 
   User.findById(userId, "_id username log")
     .then((response) => {
-      res.json({
-        ...response.toObject(),
-        count: response.toObject().log.length,
-      });
+      const exerciseLog = { ...response.toObject() };
+      exerciseLog.count = exerciseLog.log.length;
+      exerciseLog.log = exerciseLog.log.map((elem) => ({
+        description: elem.description,
+        duration: elem.duration,
+        date: elem.date,
+      }));
+
+      res.json(exerciseLog);
     })
     .catch((err) => console.error(err));
 });
