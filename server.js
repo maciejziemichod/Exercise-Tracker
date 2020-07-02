@@ -131,6 +131,12 @@ app.post("/api/exercise/add", (req, res) => {
 
   User.findByIdAndUpdate(userId, update, options)
     .then((response) => {
+      // User not found
+      if (!response) {
+        res.json({ error: "No user with this ID" });
+        return;
+      }
+
       res.json({
         _id: userId,
         username: response.username,
@@ -152,7 +158,7 @@ app.get("/api/exercise/log", (req, res) => {
     return;
   }
 
-  // Invalid ID
+  // Invalid ID format
   if (!validateId(userId)) {
     res.json({ error: "Invalid ID" });
     return;
@@ -160,6 +166,12 @@ app.get("/api/exercise/log", (req, res) => {
 
   User.findById(userId, "_id username log")
     .then((response) => {
+      // User not found
+      if (!response) {
+        res.json({ error: "No user with this ID" });
+        return;
+      }
+
       const exerciseLog = { ...response.toObject() };
       exerciseLog.count = exerciseLog.log.length;
       exerciseLog.log = exerciseLog.log.map((elem) => {
