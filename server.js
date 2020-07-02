@@ -11,6 +11,15 @@ require("dotenv").config();
 
 // Functions
 const validateId = (id) => mongoose.Types.ObjectId.isValid(id);
+const validateLimit = (limit) =>
+  Number.isInteger(parseFloat(limit)) && parseInt(limit) > 0;
+const validateDate = (date) => {
+  if (typeof date === "string") {
+    return new Date(date) + "" !== "Invalid Date";
+  } else {
+    return date + "" !== "Invalid Date";
+  }
+};
 
 // Init
 const app = express();
@@ -112,7 +121,7 @@ app.post("/api/exercise/add", (req, res) => {
   // Date validation
   const givenDate = date ? date : Date.now();
   const newDate = new Date(givenDate).toDateString();
-  if (newDate === "Invalid Date") {
+  if (!validateDate(newDate)) {
     res.json({ error: "Invalid date provided" });
     return;
   }
@@ -135,7 +144,7 @@ app.post("/api/exercise/add", (req, res) => {
 
 // API retrieve exercise log
 app.get("/api/exercise/log", (req, res) => {
-  const { userId } = req.query;
+  const { userId, from, to, limit } = req.query;
 
   // No query provided
   if (!userId) {
@@ -154,9 +163,35 @@ app.get("/api/exercise/log", (req, res) => {
       const exerciseLog = { ...response.toObject() };
       exerciseLog.count = exerciseLog.log.length;
       exerciseLog.log = exerciseLog.log.map((elem) => {
+        // Omitting _id with rest operator
         const { _id, ...exercise } = elem;
         return exercise;
       });
+
+      // From
+      if (from) {
+        if (!validateDate(from)) {
+          res.json({ error: "'from' parameter must be a proper date" });
+          return;
+        }
+      }
+
+      // To
+      if (to) {
+        if (!validateDate(to)) {
+          res.json({ error: "'to' parameter must be a proper date" });
+          return;
+        }
+      }
+
+      // Limit
+      if (limit) {
+        if (!validateLimit(limit)) {
+          res.json({ error: "'limit' parameter must be int > 0" });
+          return;
+        }
+        exerciseLog.log = exerciseLog.log.slice(0, parseInt(limit));
+      }
 
       res.json(exerciseLog);
     })
