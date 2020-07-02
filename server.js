@@ -1,8 +1,5 @@
 "use strict";
 
-// TODO: finish API instructions
-// TODO: retrieving part of exercise log
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -11,13 +8,30 @@ require("dotenv").config();
 
 // Functions
 const validateId = (id) => mongoose.Types.ObjectId.isValid(id);
+
 const validateLimit = (limit) =>
   Number.isInteger(parseFloat(limit)) && parseInt(limit) > 0;
+
 const validateDate = (date) => {
   if (typeof date === "string") {
     return new Date(date) + "" !== "Invalid Date";
   } else {
     return date + "" !== "Invalid Date";
+  }
+};
+
+const compareDates = (date1, date2, operation) => {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+
+  // Making sure comparison doesn't consider hours
+  d1.setHours(0, 0, 0, 0);
+  d2.setHours(0, 0, 0, 0);
+
+  if (operation === "from") {
+    return d1 >= d2;
+  } else if (operation === "to") {
+    return d1 <= d2;
   }
 };
 
@@ -78,6 +92,8 @@ app.get("/", (req, res) => {
   res.sendFile(process.cwd() + "/index.html");
 });
 
+///////////////////////////////////////////////////////////////
+
 // API new user
 app.post("/api/exercise/new-user", (req, res) => {
   const { username } = req.body;
@@ -101,12 +117,16 @@ app.post("/api/exercise/new-user", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+///////////////////////////////////////////////////////////////
+
 // API array of users
 app.get("/api/exercise/users", (req, res) => {
   User.find({}, "username _id").then((response) => {
     res.json(response);
   });
 });
+
+///////////////////////////////////////////////////////////////
 
 // API add exercise
 app.post("/api/exercise/add", (req, res) => {
@@ -148,11 +168,13 @@ app.post("/api/exercise/add", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+///////////////////////////////////////////////////////////////
+
 // API retrieve exercise log
 app.get("/api/exercise/log", (req, res) => {
   const { userId, from, to, limit } = req.query;
 
-  // No query provided
+  // No userId provided
   if (!userId) {
     res.json({ error: "Use /api/exercise/log?userId=_id" });
     return;
@@ -173,7 +195,6 @@ app.get("/api/exercise/log", (req, res) => {
       }
 
       const exerciseLog = { ...response.toObject() };
-      exerciseLog.count = exerciseLog.log.length;
       exerciseLog.log = exerciseLog.log.map((elem) => {
         // Omitting _id with rest operator
         const { _id, ...exercise } = elem;
@@ -186,6 +207,10 @@ app.get("/api/exercise/log", (req, res) => {
           res.json({ error: "'from' parameter must be a proper date" });
           return;
         }
+
+        exerciseLog.log = exerciseLog.log.filter((exercise) =>
+          compareDates(exercise.date, from, "from")
+        );
       }
 
       // To
@@ -194,6 +219,10 @@ app.get("/api/exercise/log", (req, res) => {
           res.json({ error: "'to' parameter must be a proper date" });
           return;
         }
+
+        exerciseLog.log = exerciseLog.log.filter((exercise) =>
+          compareDates(exercise.date, to, "to")
+        );
       }
 
       // Limit
@@ -205,6 +234,10 @@ app.get("/api/exercise/log", (req, res) => {
         exerciseLog.log = exerciseLog.log.slice(0, parseInt(limit));
       }
 
+      // Adding count property
+      exerciseLog.count = exerciseLog.log.length;
+
+      // Sending final response
       res.json(exerciseLog);
     })
     .catch((err) => console.error(err));
