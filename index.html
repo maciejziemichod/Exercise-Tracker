@@ -38,26 +38,7 @@
             </div>
           </div>
         </div>
-        <!-- array of users -->
-        <div class="card white hoverable">
-          <div class="card-content black-text">
-            <span class="card-title center array">Get an array of users</span>
-            <div class="row">
-              <form class="col s12" action="api/exercise/users" method="GET">
-                <div class="row">
-                  <div class="col s11 push-s1">
-                    <button class="btn btn-block indigo" type="submit">
-                      GET USERS
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- add exercise -->
-      <div class="col s12 l6">
+        <!-- add exercise -->
         <div class="card white hoverable">
           <div class="card-content black-text">
             <span class="card-title center">Add exercise</span>
@@ -82,6 +63,66 @@
                 <div class="row">
                   <div class="input-field col s11 push-s1">
                     <input type="date" class="validate" name="date" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s11 push-s1">
+                    <button class="btn btn-block indigo" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- array of users -->
+      <div class="col s12 l6">
+        <div class="card white hoverable">
+          <div class="card-content black-text">
+            <span class="card-title center array">Get an array of users</span>
+            <div class="row">
+              <form class="col s12" action="api/exercise/users" method="GET">
+                <div class="row">
+                  <div class="col s11 push-s1">
+                    <button class="btn btn-block indigo" type="submit">
+                      GET USERS
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- retrieve log -->
+        <div class="card white hoverable">
+          <div class="card-content black-text">
+            <span class="card-title center">Retrieve exercise log</span>
+            <div class="row">
+              <form class="col s12" action="api/exercise/log" method="GET">
+                <div class="row">
+                  <div class="input-field col s11 push-s1">
+                    <input placeholder="User ID" type="text" class="validate" name="userId" required />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s11 push-s1">
+                    <input placeholder="Limit (optional)" type="number" class="validate" name="limit" min="1" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s11 push-s1">
+                    <input id="from" type="date" class="validate" name="from" />
+                    <label for="from" class="active"> From (optional)
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s11 push-s1">
+                    <input id="to" type="date" class="validate" name="to" />
+                    <label for="to" class="active"> To (optional)
+                    </label>
                   </div>
                 </div>
                 <div class="row">
